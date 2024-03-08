@@ -1,0 +1,70 @@
+#cloud-config
+autoinstall:
+    version: 1
+    locale: en_GB
+    keyboard:
+        layout: gb
+        # variant: gb
+    early-commands:
+        # workaround to stop ssh for packer as it thinks it timed out
+        - sudo systemctl stop ssh
+    # locale: en_GB
+    # keyboard:
+    #     layout: en
+    #     variant: gb
+    # apt:
+    # preserve_sources_list: false
+    # mirror-selection:
+    #     primary:
+    #         - country-mirror
+    #         - arches: [i386, amd64]
+    #           uri: "http://ie.archive.ubuntu.com/ubuntu/"
+    #         - arches: [s390x, arm64, armhf, powerpc, ppc64el, riscv64]
+    #           uri: "http://ie.ports.ubuntu.com/ubuntu-ports"
+    # fallback: abort
+    # geoip: true
+    packages:
+        [
+            open-vm-tools,
+            openssh-server,
+            net-tools,
+            perl,
+            open-iscsi,
+            ntp,
+            curl,
+            vim,
+            ifupdown,
+            zip,
+            unzip,
+            gnupg2,
+            software-properties-common,
+            apt-transport-https,
+            ca-certificates,
+            lsb-release,
+            python3-pip,
+            jq,
+            cloud-init,
+        ]
+    network:
+        network:
+            version: 2
+            ethernets:
+                ens192:
+                    dhcp4: true
+    identity:
+        hostname: ubuntu-server
+        username: ubuntu
+        password: "$6$2F6C2EVdqKvwA0Y7$.Kx32/0AnlrGnctCDFJyPjkess40S3GDjJu7Q4ZsY8TO6SliHJG7SCt9PfMLauWoRMcd6sAP5iDuvf8BeVW/V0"
+    ssh:
+        install-server: yes
+        allow-pw: yes
+        authorized-keys:
+            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8/3+YtVxunoWwy1VAUKGYRIrB06OkqNnXPuYDfX1eM4Ltue004NMcqQO8SCKZcEtWVFDQwQ0e2gPKiLKDHvqApqIdL4wY+L0lx1ST8PFe7TUj9k6Z3pVRnI51WYRJr35GGH/7whMeS4UC8yy9tj0LL5u6NF5wdAid+dNiK60htEe46zs590p4lisErxFebkhM5hJ33hR57Roa4kNI1NqvzlnBeQv2akwqwAep4vg57vZpVGXqv9F7RyJp2Qi74bKRo8FqpNOvltfwrt5lyPOvd615vJpEG8CYk9cAErqNp0rKKCnKq0ELnXc5HPnygYBSGZdln254xmdgCmrltkLZp8R2l4zOEoY4i6I8D1ZqqIIobHgxPL0ZJxOc4saf/fK/EOLd0YnY87sepPhKBS05RBGoCPhtglvtL8Gc04/g5rf+5J82YXlqUVcwR8qOUyHj96toh646SUE6QLHyUW9ravGFhQoPs8e906JSu3mQVBbI7bq9VrIxz0M/T97LcP8= jcometti@Joaos-MacBook-Pro.local
+    storage:
+        layout:
+            name: direct
+    user-data:
+        disable_root: false
+    late-commands:
+        - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+        - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/ubuntu
