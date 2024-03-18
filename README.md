@@ -6,11 +6,10 @@ This repository simplifies the process of creating a template in vCenter 8.0 usi
 - [Getting Started](#getting-started)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Generating a Hashed Password](#generating-a-hashed-password)
 - [Running Packer Build with HCL](#running-packer-build-with-hcl)
 - [Directory Structure](#directory-structure)
-- [Contact](#contact)
+- [Reference](#reference)
 
 ## Getting Started
 
@@ -73,6 +72,6 @@ This project follows the directory structure:
 - `vsphere.pkrvars.hcl`: vSphere variables file.
 
 
-## Contact 
+## Reference 
 
-If you have any questions, encounter issues, or have suggestions, please feel free to open an issue on GitHub or reach out to the maintainer at joao.cometti@gmail.com.
+https://www.youtube.com/watch?v=FvQuVWk2f6s&list=PL-7fHWfrqQvFzMsSMCgrW-eCaEJ4tFUEi&index=6
