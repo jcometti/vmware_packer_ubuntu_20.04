@@ -8,7 +8,7 @@ http_directory = "http"
 
 # Virtual Machine Settings
 
-vm_name                     = "Ubuntu-2204-Template-100GB-Thin"
+vm_name                     = "Ubuntu-2204-100GB-Thin"
 vm_guest_os_type            = "ubuntu64Guest"
 vm_version                  = 14
 vm_firmware                 = "bios"
